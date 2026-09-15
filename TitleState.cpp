@@ -2,14 +2,20 @@
 #include <iostream>
 #include "GameManager.h"
 #include "GameState.h"
+#include "MainMenu.h"
+#include <conio.h>
 
 void TitleState::OnEnter(GameManager* manager) {
-	std::cout << "タイトル画面" << std::endl;
+	std::cout << "タイトル画面 - 任意のキーでメインメニューへ" << std::endl;
 }
 
 void TitleState::OnUpdate(GameManager* manager, float deltaTime) 
 {
-
+	// 任意のキーでメインメニューへ遷移
+	if (_kbhit()) {
+		(void)_getch();
+		manager->ChangeState(std::make_unique<MainMenuState>());
+	}
 }
 
 void TitleState::OnExit(GameManager* manager) 
