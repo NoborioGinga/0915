@@ -11,7 +11,7 @@ void TitleState::OnEnter(GameManager* manager) {
 
 void TitleState::OnUpdate(GameManager* manager, float deltaTime) 
 {
-	// 任意のキーでメインメニューへ遷移
+	(void)deltaTime;
 	if (_kbhit()) {
 		(void)_getch();
 		manager->ChangeState(std::make_unique<MainMenuState>());

@@ -1,28 +1,35 @@
-#include "InGame.h"
+ï»¿#include "InGame.h"
 #include <iostream>
 #include <random>
 #include "GameManager.h"
 #include "Result.h"
+#include <conio.h>
 
 void InGameState::OnEnter(GameManager* manager) {
-	// Enteri‘JˆÚj‚É1-10‚Ì—”‚ğ¶¬‚µ‚Ä‘¦À‚ÉƒŠƒUƒ‹ƒg‚Ö‘JˆÚ
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dist(1, 10);
-	int result = dist(gen);
-
-	// ResultState ‚ÉŒ‹‰Ê‚ğ“n‚µ‚Ä‘JˆÚ
-	manager->ChangeState(std::make_unique<ResultState>(result));
+	std::cout << "ã‚¤ãƒ³ã‚²ãƒ¼ãƒ  - Enterã‚­ãƒ¼ã§æŠ½é¸ (1ã€œ10)ã€‚1ãŒå‡ºãŸã‚‰çµæœç”»é¢ã¸ã€‚" << std::endl;
 }
 
 void InGameState::OnUpdate(GameManager* manager, float deltaTime) {
-	// InGame ‚Í‘¦‘JˆÚ‚·‚é‚Ì‚Å“Á•Ê‚Èˆ—‚Í•s—v
-	(void)manager;
 	(void)deltaTime;
+	if (_kbhit()) {
+		int ch = _getch();
+		// Enter ã‚­ãƒ¼ (Windows ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã§ã¯ '\r' = 13)
+		if (ch == '\r' || ch == '\n' || ch == 13) {
+			// ä¹±æ•°ç”Ÿæˆ 1..10
+			static std::random_device rd;
+			static std::mt19937 gen(rd());
+			std::uniform_int_distribution<> dist(1, 10);
+			int value = dist(gen);
+			std::cout << "æŠ½é¸çµæœ: " << value << std::endl;
+			if (value == 1) {
+				manager->ChangeState(std::make_unique<ResultState>(value));
+			}
+		}
+	}
 }
 
 void InGameState::OnExit(GameManager* manager) {
-	std::cout << "ƒCƒ“ƒQ[ƒ€I—¹" << std::endl;
+	std::cout << "ã‚¤ãƒ³ã‚²ãƒ¼ãƒ çµ‚äº†" << std::endl;
 }
 
 const std::string InGameState::GetName() const {

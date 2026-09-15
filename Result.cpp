@@ -10,11 +10,11 @@ void ResultState::OnEnter(GameManager* manager) {
 }
 
 void ResultState::OnUpdate(GameManager* manager, float deltaTime) {
+	(void)deltaTime;
 	if (_kbhit()) {
 		(void)_getch();
 		manager->ChangeState(std::make_unique<TitleState>());
 	}
-	(void)deltaTime;
 }
 
 void ResultState::OnExit(GameManager* manager) {

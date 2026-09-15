@@ -5,11 +5,11 @@
 #include <conio.h>
 
 void MainMenuState::OnEnter(GameManager* manager) {
-	std::cout << "メインメニュー - 1: ゲーム開始" << std::endl;
+	std::cout << "メインメニュー - '1' キーでゲーム開始" << std::endl;
 }
 
 void MainMenuState::OnUpdate(GameManager* manager, float deltaTime) {
-	// '1' キーで InGame に遷移
+	(void)deltaTime;
 	if (_kbhit()) {
 		int ch = _getch();
 		if (ch == '1') {
