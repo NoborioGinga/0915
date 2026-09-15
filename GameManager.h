@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include <string>
-#include "GameState.h"
 
 class GameState;
 
